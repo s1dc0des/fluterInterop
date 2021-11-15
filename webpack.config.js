@@ -29,7 +29,7 @@ function initCanisterIds() {
       canisters[canister][network];
   }
 }
-initCanisterIds();
+// initCanisterIds();
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 const asset_entry = path.join(
@@ -53,7 +53,7 @@ module.exports = {
     minimizer: [new TerserPlugin()],
   },
   resolve: {
-    extensions: [".js", ".ts", ".jsx", ".tsx"],
+    extensions: [".js", ".ts"],
     fallback: {
       assert: require.resolve("assert/"),
       buffer: require.resolve("buffer/"),
@@ -64,6 +64,7 @@ module.exports = {
   },
   output: {
     filename: "index.js",
+    publicPath: "/",
     path: path.join(__dirname, "dist", "nftInterop_assets"),
   },
 
@@ -72,12 +73,12 @@ module.exports = {
   // webpack configuration. For example, if you are using React
   // modules and CSS as described in the "Adding a stylesheet"
   // tutorial, uncomment the following lines:
-  // module: {
-  //  rules: [
-  //    { test: /\.(ts|tsx|jsx)$/, loader: "ts-loader" },
-  //    { test: /\.css$/, use: ['style-loader','css-loader'] }
-  //  ]
-  // },
+  module: {
+    rules: [
+      { test: /\.(ts|tsx|jsx)$/, loader: "ts-loader" },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] }
+    ]
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, asset_entry),
@@ -93,7 +94,6 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-      NFTINTEROP_CANISTER_ID: canisters["nftInterop"]
     }),
     new webpack.ProvidePlugin({
       Buffer: [require.resolve("buffer/"), "Buffer"],

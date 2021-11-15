@@ -1,15 +1,9 @@
 {
   "canisters": {
-    "nftInterop": {
-      "main": "src/nftInterop/main.mo",
-      "type": "motoko"
-    },
+    
     "nftInterop_assets": {
-      "dependencies": [
-        "nftInterop"
-      ],
       "frontend": {
-        "entrypoint": "src/nftInterop_assets/src/index.html"
+        "entrypoint": "src/nftInterop_assets/src/main.dart.js"
       },
       "source": [
         "src/nftInterop_assets/assets",
